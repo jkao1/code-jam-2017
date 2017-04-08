@@ -3,58 +3,76 @@ import java.io.*;
 
 public class PancakeFlipper {
 
-    private static void organizeTest(String test)
+    private static void organizeTest(String test, int testCaseNum, int paddleSize )
     {
         int[] ary = new int[ test.length() ];
-        int upTo = 0;
-        char current = test.charAt(0);
-        for ( int i = 0; i < test.length(); i++ ) {
-            if ( test.charAt(i) == current ) {
-                ary[ upTo ]++;
+        for (int i = 0; i < test.length(); i++) {
+            if (test.charAt(i) == '+') {
+                ary[i] = 1;
             } else {
-                current = test.charAt(i);
-                upTo++;
-                ary[ upTo ]++;
+                ary[i] = 0;
             }
         }
-        flip( test, test.charAt(0) == '-' );
+
+        System.out.println( "Case #" + testCaseNum + ": " + flip(ary, 0, paddleSize) );
     }
 
-    private static void flip(int[] ary, boolean negativeFirst)
+    private static String flip(int[] ary, int flips, int paddleSize)
     {
-        if ( negativeFirst ) {
-            int pancakeCount = 0;
-            int upTo = 0;
-            while ( pancakeCount < 3 ) {
-                
+        if (goodArray(ary)) {
+            return "" + flips;
+        }
+        for (int i = 0; i < ary.length - paddleSize + 1; i++) {
+            if (ary[i] == 0) {
+                for (int j = i; j < i + paddleSize; j++) {
+                    if (ary[j] == 0) {
+                        ary[j] = 1;
+                    } else {
+                        ary[j] = 0;
+                    }
+                }
+                return flip(ary, flips+1, paddleSize);
             }
         }
+        return "IMPOSSIBLE";
+    }
+
+    private static boolean goodArray(int[] ary)
+    {
+        for (int i : ary) {
+            if (i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static void print(int[] ary) {
-        String o = "[";
+        String o = "";
         for ( int i : ary ) {
-            o += i + ",";
+            if (i == 0) {
+                o += '-';
+            } else {
+                o += '+';
+            }
         }
-        System.out.println( o.substring( 0, o.length() - 1 ) + "]" );
+        System.out.println(o);
     }
 
     public static void main(String[] args)
     {
-        String in = "---+-++-";
-        organizeTest( in );
-        /*
         Scanner in = new Scanner( new BufferedReader( new InputStreamReader( System.in )));
         int testCases = in.nextInt();
+        int testCaseNum = 0;
         while ( in.hasNext() ) {
             try {
                 String line = in.nextLine();
                 Scanner s = new Scanner( line );
                 String test = s.next();
-                int flips = s.nextInt();
-                organizeTest( test );
+                int paddleSize = s.nextInt();
+                organizeTest( test, testCaseNum, paddleSize );
             } catch (Exception e) {}
+            testCaseNum++;
         }
-        */
     }
 }
