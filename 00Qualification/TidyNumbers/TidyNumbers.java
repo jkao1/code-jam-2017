@@ -20,7 +20,7 @@ public class TidyNumbers {
                 sweep9(ary, i - repeated + 1);
             }
         }
-        long output = arrayToLong(ary);
+        String output = print(ary);
         System.out.println("Case #" + caseNumber + ": " + output);
     }
 
@@ -52,13 +52,13 @@ public class TidyNumbers {
         return output;
     }
 
-    private static void print(int[] ary)
+    private static String print(int[] ary)
     {
         String o = "";
         for (int i : ary) {
-            o += i + " ";
+            o += i + "";
         }
-        System.out.println(o);
+        return o;
     }
 
     public static void main(String[] args) {
