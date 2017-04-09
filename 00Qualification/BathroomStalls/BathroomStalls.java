@@ -14,8 +14,9 @@ public class BathroomStalls {
         empties.add(stalls);
 
         for (int p = 0; p < people - 1; p++) {
-            long shouldSplit = Collections.max(empties);
-            int index = empties.indexOf(shouldSplit);
+            long[] hi = max(empties);
+            long shouldSplit = hi[0];
+            int index = hi[1];
             if (shouldSplit % 2 == 0) {
                 empties.set(index, shouldSplit / 2 - 1);
                 empties.add(index + 1, shouldSplit / 2);
@@ -35,6 +36,11 @@ public class BathroomStalls {
             right = shouldSplit / 2; // rounds down .5 each time, removing emptie a person took
         }
         System.out.println("Case #" + caseNumber + ": " + Math.max(left, right) + " " + Math.min(left, right));
+    }
+
+    public static long[] max(LinkedList<Long> d)
+    {
+        for (int i = 0; i < )
     }
 
     public static void main(String[] args) {
