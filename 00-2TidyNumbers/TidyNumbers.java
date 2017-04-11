@@ -20,8 +20,7 @@ public class TidyNumbers {
                 sweep9(ary, i - repeated + 1);
             }
         }
-        String output = print(ary);
-        System.out.println("Case #" + caseNumber + ": " + output);
+        System.out.println("Case #" + caseNumber + ": " + arrayToString(ary));
     }
 
     private static int[] longToArray(long n)
@@ -41,22 +40,19 @@ public class TidyNumbers {
         }
     }
 
-    private static long arrayToLong(int[] ary)
-    {
-        long output = 0;
-        int place = 0;
-        for (int i = ary.length - 1; i >= 0; i--) {
-            output += ary[i] * Math.pow(10, place);
-            place++;
-        }
-        return output;
-    }
-
-    private static String print(int[] ary)
+    private static String arrayToString(int[] ary)
     {
         String o = "";
+	boolean headZeroes = true;
         for (int i : ary) {
-            o += i + "";
+	    if (headZeroes) {
+		if (i != 0) {
+		    headZeroes = false;
+		    o += i;
+		}
+	    } else {
+            	o += i + "";
+	    }
         }
         return o;
     }
